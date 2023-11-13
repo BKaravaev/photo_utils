@@ -74,3 +74,4 @@ if __name__ == '__main__':
     # Move .cr2 files to SORTED folder
     move_remaining_cr2_files(path)
     delete_remaining_empty_raw_folders(path)
+    input("Done, press any key to exit...")
