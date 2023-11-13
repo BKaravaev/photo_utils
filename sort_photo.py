@@ -1,7 +1,7 @@
 #  utility script to organize photos
 
 #  In my photo folders, where this script will go
-#  folders come in pairs: YYYYMMDD_RAW & YYYYMMDD_JPEG
+#  folders come in pairs: YYYYMMDD_RAW & YYYYMMDD_JPG
 #  both contain symmetrical sets of files with matching names
 #  Raw are IMG_DDDD.cr2, jpegs are same but .jpeg
 #  Crawl folder, Find JPEG folder, collect names
@@ -18,7 +18,7 @@ def collect_jpg_file_names(directory_path):
 
     jpg_files = set()
     for root, _, files in os.walk(directory_path):
-        if "_JPEG" in root:
+        if "_JPG" in root:
             for file in files:
                 if file.lower().endswith('.jpg'):
                     jpg_files.add(file.lower().replace('.jpg', ''))
@@ -39,7 +39,7 @@ def delete_non_matching_raw_files(directory_path, jpeg_files):
 def delete_remaining_jpeg_folders(directory_path):
     for root, dirs, _ in os.walk(directory_path):
         for directory in dirs:
-            if directory.endswith('_JPEG'):
+            if directory.endswith('_JPG'):
                 folder_path = os.path.join(root, directory)
                 shutil.rmtree(folder_path)
 
@@ -63,8 +63,7 @@ def delete_remaining_empty_raw_folders(directory_path):
                     os.rmdir(folder_path)  # Remove the empty folder
 
 
-# Path to the parent directory containing '_JPEG' and '_RAW' folders
-# PATH = 'c:\\Walbrzych_photo' DEPRECATED
+# Path to the parent directory containing '_JPG' and '_RAW' folders
 
 
 if __name__ == '__main__':
