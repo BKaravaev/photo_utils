@@ -37,7 +37,7 @@ def delete_non_matching_raw_files(directory_path, jpeg_files):
 
             for file in files:  # add skip logic for already processed raw files.
                 if file.lower().endswith('.pp3'):
-                    skip_list.add(file.lower().replace('pp3', ''))
+                    skip_list.add(file.lower().replace('.cr2.pp3', ''))
 
             for file in files:
                 if file.lower().endswith('.cr2'):
