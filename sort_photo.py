@@ -59,7 +59,7 @@ def move_remaining_cr2_files(directory_path):
     os.makedirs(sorted_folder, exist_ok=True)
     for root, _, files in os.walk(directory_path):
         for file in files:
-            if file.lower().endswith('.cr2'):
+            if file.lower().endswith('.cr2') or file.lower().endswith('.pp3'):
                 file_path = os.path.join(root, file)
                 shutil.move(file_path, os.path.join(sorted_folder, file))
 
