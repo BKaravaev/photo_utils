@@ -6,6 +6,7 @@
 #  Raw are IMG_DDDD.cr2, jpegs are same but .jpeg
 #  Crawl folder, Find JPEG folder, collect names
 #  find matching RAW folder, delete all that are not in the names
+#  v.2023-12-13 added skip logic for already processed raw files
 #  ...
 #  profit
 
@@ -17,6 +18,7 @@ import shutil
 def collect_jpg_file_names(directory_path):
 
     jpg_files = set()
+
     for root, _, files in os.walk(directory_path):
         if "_JPG" in root:
             for file in files:
@@ -27,12 +29,20 @@ def collect_jpg_file_names(directory_path):
 
 
 def delete_non_matching_raw_files(directory_path, jpeg_files):
+
     for root, _, files in os.walk(directory_path):
         if "_RAW" in root:
+
+            skip_list = set()
+
+            for file in files:  # add skip logic for already processed raw files.
+                if file.lower().endswith('.pp3'):
+                    skip_list.add(file.lower().replace('pp3', ''))
+
             for file in files:
                 if file.lower().endswith('.cr2'):
                     raw_file_name = file.lower().replace('.cr2', '')
-                    if raw_file_name not in jpeg_files:
+                    if raw_file_name not in jpeg_files and raw_file_name not in skip_list:
                         os.remove(os.path.join(root, file))
 
 
